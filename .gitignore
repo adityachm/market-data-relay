@@ -1,0 +1,10 @@
+.env
+.runtime/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.jsonl
+.DS_Store

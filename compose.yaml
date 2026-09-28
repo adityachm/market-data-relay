@@ -1,0 +1,48 @@
+services:
+  market-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: local/upstox-market-gateway:0.2.0
+    restart: unless-stopped
+    mem_limit: 300m
+    mem_reservation: 128m
+    cpus: 1.0
+    pids_limit: 128
+    read_only: true
+    init: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    ports:
+      - "8080:8080"
+    environment:
+      GATEWAY_HOST: 0.0.0.0
+      GATEWAY_PORT: "8080"
+      UPSTOX_TOKEN_FILE: /run/secrets/upstox_token
+      GATEWAY_API_KEY_FILE: /run/secrets/gateway_api_key
+      INSTRUMENT_CACHE_DIR: /var/cache/upstox
+      GATEWAY_TARGET_INDICES: NIFTY,SENSEX
+      FUTURES_PER_UNDERLYING: "1"
+      OPTION_EXPIRIES_PER_INDEX: "2"
+      CATALOG_REFRESH_SECONDS: "21600"
+      CLIENT_QUEUE_SIZE: "64"
+      SUBSCRIPTION_BATCH_SIZE: "500"
+      MAX_CLIENT_KEYS: "1500"
+    secrets:
+      - upstox_token
+      - gateway_api_key
+    volumes:
+      - instrument-cache:/var/cache/upstox
+
+secrets:
+  upstox_token:
+    file: ./.runtime/upstox_token.json
+  gateway_api_key:
+    file: ./.runtime/gateway_api_key
+
+volumes:
+  instrument-cache:

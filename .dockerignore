@@ -1,0 +1,9 @@
+.env
+.runtime/
+.venv/
+.git/
+.gitignore
+__pycache__/
+*.py[cod]
+*.jsonl
+DATABASE_AUDIT.md

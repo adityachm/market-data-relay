@@ -1,0 +1,5 @@
+services:
+  market-gateway:
+    build:
+      dockerfile: Dockerfile.server40
+    user: "1000:1000"

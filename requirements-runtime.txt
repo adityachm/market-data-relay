@@ -1,0 +1,9 @@
+click==8.1.8
+fastapi==0.128.8
+httpx==0.28.1
+ijson==3.5.1
+protobuf==6.33.6
+upstox-python-sdk==2.30.0
+urllib3==1.26.20
+uvicorn==0.39.0
+websockets==15.0.1
